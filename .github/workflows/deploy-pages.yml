@@ -23,6 +23,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Gera previews dos videos
+        run: |
+          ffmpeg -y -ss 00:00:01.5 -i "6A0E6684-5A14-46E8-95F6-66C1EBAA6FAE.mp4" -frames:v 1 -vf "scale=512:-2" -q:v 5 poster-1.jpg
+          ffmpeg -y -ss 00:00:01.5 -i "9BD1EAC5-94F1-4024-BC7E-B3E0AF7C0608.mp4" -frames:v 1 -vf "scale=512:-2" -q:v 5 poster-2.jpg
+          ffmpeg -y -ss 00:00:01.5 -i "B97755E8-2E66-44EB-BAAC-747C646868C9.mov" -frames:v 1 -vf "scale=512:-2" -q:v 5 poster-3.jpg
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload site
