@@ -23,6 +23,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Instala ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
       - name: Gera previews dos videos
         run: |
           ffmpeg -y -ss 00:00:01.5 -i "6A0E6684-5A14-46E8-95F6-66C1EBAA6FAE.mp4" -frames:v 1 -vf "scale=512:-2" -q:v 5 poster-1.jpg
