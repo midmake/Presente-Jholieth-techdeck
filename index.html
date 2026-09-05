@@ -17,11 +17,11 @@ main{position:relative;z-index:1;width:min(1000px,calc(100% - 24px));margin:0 au
 <section id="gate"><div class="gate-inner"><h1 class="gate-title">Toque no skate<br>para entrar</h1><button id="enter" class="enter" aria-label="Entrar"><span class="emoji">🛹</span><strong>Entrar</strong></button></div></section>
 <main id="content" hidden>
 <section class="hero"><h1>Nosso rolê<br>de skate</h1><p>Uma tarde simples que acabou virando uma das lembranças que eu gosto de guardar.</p></section>
-<section class="media-block"><div class="videos"><video controls playsinline preload="metadata" src="assets/video-1.mp4"></video><video controls playsinline preload="metadata" src="assets/video-2.mp4"></video><video controls playsinline preload="metadata" src="assets/video-3.mp4"></video></div></section>
-<section class="media-block"><div class="photos"><img src="assets/foto-1.jpg" alt="Foto nossa naquele dia"><img src="assets/foto-2.jpg" alt="Foto nossa naquele dia"></div></section>
+<section class="media-block"><div class="videos"><video controls playsinline preload="metadata" src="video-1.mp4"></video><video controls playsinline preload="metadata" src="video-2.mp4"></video><video controls playsinline preload="metadata" src="video-3.mp4"></video></div></section>
+<section class="media-block"><div class="photos"><img src="IMG_9686.jpeg" alt="Foto nossa naquele dia"><img src="IMG_9687.jpeg" alt="Foto nossa naquele dia"></div></section>
 <section class="quote"><p><strong>Cada momento contigo se vuelve más especial.</strong><br><span>Y ojalá todavía nos queden muchos por compartir.</span></p></section>
 </main>
-<audio id="music" loop preload="auto" src="assets/musica.mp3"></audio><button id="sound" class="sound" aria-label="Ligar ou desligar música">♫</button>
+<audio id="music" loop preload="auto" src="musica.mp3"></audio><button id="sound" class="sound" aria-label="Ligar ou desligar música">♫</button>
 <script>
 const gate=document.getElementById('gate'),content=document.getElementById('content'),enter=document.getElementById('enter'),music=document.getElementById('music'),sound=document.getElementById('sound'),videos=[...document.querySelectorAll('video')];let musicOK=false;music.addEventListener('canplay',()=>{musicOK=true;sound.style.display='grid'});music.addEventListener('error',()=>{musicOK=false;sound.style.display='none'});enter.addEventListener('click',async()=>{enter.classList.add('flip');if(musicOK){try{music.volume=.3;await music.play()}catch(e){}}setTimeout(()=>{content.hidden=false;gate.classList.add('hide');window.scrollTo(0,0)},520)},{once:true});sound.addEventListener('click',()=>{if(music.paused){music.play();sound.textContent='♫'}else{music.pause();sound.textContent='♪'}});videos.forEach(v=>v.addEventListener('play',()=>{if(!music.paused)music.pause()}));
 </script>
