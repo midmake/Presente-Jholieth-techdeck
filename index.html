@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#075a42">
+  <title>Nosso rolê de skate</title>
+  <style>
+    :root{
+      --g1:#03472f;
+      --g2:#087051;
+      --g3:#0c9369;
+      --pink1:#ff7fb4;
+      --pink2:#ff4f96;
+      --text:#f8fff9;
+      --muted:rgba(248,255,249,.84);
+      --glass:rgba(255,255,255,.10);
+      --line:rgba(255,255,255,.13);
+      --shadow:0 18px 45px rgba(0,0,0,.23);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 12% -5%,rgba(255,255,255,.14),transparent 30%),
+        linear-gradient(160deg,var(--g1),var(--g2) 54%,var(--g3));
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    #start{
+      position:fixed;
+      inset:0;
+      z-index:20;
+      display:grid;
+      place-items:center;
+      padding:28px 22px calc(28px + env(safe-area-inset-bottom));
+      text-align:center;
+      background:
+        radial-gradient(circle at 50% 28%,rgba(255,255,255,.13),transparent 28%),
+        linear-gradient(160deg,#033c2b,#075d45 58%,#0b8a64);
+      transition:opacity .5s ease,visibility .5s ease;
+    }
+    #start.hide{opacity:0;visibility:hidden}
+    .start-inner{width:min(100%,430px)}
+    .eyebrow{
+      margin:0 0 13px;
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:rgba(255,255,255,.72)
+    }
+    .start-title{
+      margin:0 0 13px;
+      font-size:clamp(2rem,8vw,3.1rem);
+      line-height:1.02;
+      letter-spacing:-.025em
+    }
+    .start-copy{
+      margin:0 auto 27px;
+      max-width:30ch;
+      color:rgba(255,255,255,.88);
+      line-height:1.55
+    }
+    button{appearance:none;border:0;background:none;color:inherit;padding:0;cursor:pointer}
+    .deck-wrap{perspective:1000px}
+    .deck{
+      position:relative;
+      width:min(330px,86vw);
+      aspect-ratio:2.35/1;
+      margin:auto;
+      border-radius:48% 48% 45% 45% / 24% 24% 24% 24%;
+      background:
+        linear-gradient(135deg,rgba(255,255,255,.22),transparent 32%),
+        linear-gradient(120deg,var(--pink1),var(--pink2));
+      box-shadow:var(--shadow);
+      display:grid;
+      place-items:center;
+      transform-style:preserve-3d;
+      transition:transform .85s cubic-bezier(.2,.8,.2,1)
+    }
+    .deck::before{
+      content:"";
+      position:absolute;
+      inset:10px 17px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.30)
+    }
+    .deck::after{
+      content:"";
+      position:absolute;
+      width:72%;
+      height:8px;
+      bottom:-7px;
+      left:14%;
+      border-radius:999px;
+      background:rgba(22,22,22,.94);
+      box-shadow:
+        -58px 12px 0 -1px #f8f8f8,
+        58px 12px 0 -1px #f8f8f8,
+        -58px 12px 0 5px #171717,
+        58px 12px 0 5px #171717
+    }
+    .deck.flip{transform:rotateY(360deg) rotateZ(-9deg) scale(1.04)}
+    .deck-label{position:relative;z-index:2;font-weight:800;font-size:1.28rem;text-shadow:0 2px 9px rgba(0,0,0,.18)}
+    .deck-label span{display:block;font-size:.82rem;font-weight:600;margin-top:6px;opacity:.86}
+    .tap-note{margin:22px 0 0;font-size:.9rem;color:rgba(255,255,255,.72)}
+    main{max-width:920px;margin:auto;padding:24px 16px 42px}
+    .card{
+      margin-top:16px;
+      padding:19px;
+      border:1px solid var(--line);
+      border-radius:25px;
+      background:var(--glass);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px)
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      margin-bottom:12px;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      font-size:.88rem
+    }
+    h1{margin:0 0 10px;font-size:clamp(2rem,7vw,3.2rem);line-height:1.04;letter-spacing:-.03em}
+    h2{margin:0 0 8px;font-size:1.25rem}
+    .muted{margin:0;color:var(--muted);line-height:1.62}
+    .videos{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:13px;
+      margin-top:15px
+    }
+    .video-shell,.photo-shell{
+      overflow:hidden;
+      border-radius:19px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.16)
+    }
+    video,img{display:block;width:100%;background:#000}
+    video{aspect-ratio:9/16;object-fit:cover}
+    .photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:15px}
+    .photos img{aspect-ratio:3/4;object-fit:cover}
+    .note{text-align:center;padding:24px 20px;font-size:1.08rem;line-height:1.75}
+    .note strong{font-size:1.14rem}
+    .heart{display:block;margin-top:9px;font-size:1.25rem}
+    .sound-btn{
+      position:fixed;
+      right:16px;
+      bottom:calc(16px + env(safe-area-inset-bottom));
+      z-index:8;
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:none;
+      place-items:center;
+      background:rgba(4,58,43,.82);
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 12px 28px rgba(0,0,0,.24);
+      backdrop-filter:blur(8px)
+    }
+    @media(max-width:700px){
+      .videos{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:76vw;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+      .video-shell{scroll-snap-align:center}
+      .photos{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <section id="start">
+    <div class="start-inner">
+      <p class="eyebrow">Uma lembrança pra guardar</p>
+      <h1 class="start-title">Tem uma coisa<br>escondida aqui</h1>
+      <p class="start-copy">Toca no skate pra abrir um pedacinho do nosso primeiro rolê juntos.</p>
+      <button id="enter" aria-label="Entrar na lembrança">
+        <div class="deck-wrap">
+          <div id="deck" class="deck">
+            <div class="deck-label">🛹 Entrar<span>toca aqui</span></div>
+          </div>
+        </div>
+      </button>
+      <p class="tap-note">um flip e a lembrança abre ✨</p>
+    </div>
+  </section>
+
+  <main id="content" hidden>
+    <section class="card">
+      <div class="pill">🛹 o primeiro de nós dois</div>
+      <h1>Nosso rolê de skate</h1>
+      <p class="muted">Guardei aqui alguns pedacinhos daquele dia. Uma tarde simples que acabou virando uma das lembranças que eu gosto de guardar.</p>
+    </section>
+
+    <section class="card">
+      <h2>Um pouco daquele dia</h2>
+      <p class="muted">Toca pra assistir. O vídeo fica aqui mesmo e, se quiser, dá pra abrir em tela cheia.</p>
+      <div class="videos">
+        <div class="video-shell"><video controls playsinline preload="metadata" src="assets/video-1.mp4"></video></div>
+        <div class="video-shell"><video controls playsinline preload="metadata" src="assets/video-2.mp4"></video></div>
+        <div class="video-shell"><video controls playsinline preload="metadata" src="assets/video-3.mp4"></video></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Essas duas ficaram 💚</h2>
+      <div class="photos">
+        <div class="photo-shell"><img src="assets/foto-1.jpg" alt="Uma foto nossa naquele dia"></div>
+        <div class="photo-shell"><img src="assets/foto-2.jpg" alt="Outra foto nossa naquele dia"></div>
+      </div>
+    </section>
+
+    <section class="card note">
+      <strong>Cada momento contigo se vuelve más especial.</strong><br>
+      Y ojalá todavía nos queden muchos por compartir.
+      <span class="heart">💚</span>
+    </section>
+  </main>
+
+  <audio id="music" loop preload="auto" src="assets/musica.mp3"></audio>
+  <button id="sound" class="sound-btn" aria-label="Ligar ou desligar música">♫</button>
+
+  <script>
+    const start=document.getElementById('start');
+    const content=document.getElementById('content');
+    const deck=document.getElementById('deck');
+    const enter=document.getElementById('enter');
+    const music=document.getElementById('music');
+    const sound=document.getElementById('sound');
+    const videos=[...document.querySelectorAll('video')];
+    let musicAvailable=false;
+
+    music.addEventListener('canplay',()=>{musicAvailable=true;sound.style.display='grid'});
+    music.addEventListener('error',()=>{musicAvailable=false;sound.style.display='none'});
+
+    enter.addEventListener('click',async()=>{
+      deck.classList.add('flip');
+      if(musicAvailable){try{music.volume=.32;await music.play()}catch(e){}}
+      setTimeout(()=>{
+        content.hidden=false;
+        start.classList.add('hide');
+        window.scrollTo({top:0,behavior:'smooth'});
+      },650);
+    },{once:true});
+
+    sound.addEventListener('click',()=>{
+      if(music.paused){music.play();sound.textContent='♫'}else{music.pause();sound.textContent='♪'}
+    });
+
+    videos.forEach(v=>{
+      v.addEventListener('play',()=>{if(!music.paused)music.pause()});
+      v.addEventListener('pause',()=>{if(musicAvailable&&!v.ended){} });
+    });
+  </script>
+</body>
+</html>
